@@ -1,3 +1,4 @@
+import React from 'react';
 import { Canvas } from '@react-three/fiber'
 import { Suspense } from 'react'
 import { Preload } from '@react-three/drei'
@@ -25,7 +26,6 @@ import Overlay from './html/Overlay'
 import Hud from './html/Hud'
 import GameOverScreen from './html/GameOverScreen'
 
-
 export default function CubeWorld({ color, bgColor }) {
   const directionalLight = useStore((s) => s.directionalLight)
 
@@ -33,26 +33,26 @@ export default function CubeWorld({ color, bgColor }) {
     <>
       <Canvas gl={{ antialias: false, alpha: false }} mode="concurrent" dpr={[1, 1.5]} style={{ background: `${bgColor}` }}>
         <Suspense fallback={null}>
-          <GameState />
-          <Skybox />
           <directionalLight
             ref={directionalLight}
             intensity={3}
             position={[0, Math.PI, 0]}
           />
           <ambientLight intensity={0.1} />
+          <GameState />
           <Ship>
             {directionalLight.current && <primitive object={directionalLight.current.target} />}
           </Ship>
+          <Skybox />
           <Walls />
           <Cubes />
-          <CubeTunnel />
-          <Ground groundColor={bgColor} />
+          <CubeTunnel /> 
           <KeyboardControls />
-          <Effects />
+          {/* <Effects /> */}
           <GlobalColor />
           <Music />
-          <Sound />
+          <Sound /> 
+          <Ground />
           <Preload all />
         </Suspense>
       </Canvas>
